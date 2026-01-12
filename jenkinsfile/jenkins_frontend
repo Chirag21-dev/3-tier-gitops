@@ -19,7 +19,8 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-               git branch: 'main', credentialsId: 'GITHUB', url: 'https://github.com/Chirag21-dev/3-tier-gitops.git'
+               //git branch: 'main', credentialsId: 'GITHUB', url: 'https://github.com/Chirag21-dev/3-tier-gitops.git'
+               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB', url: 'https://github.com/Chirag21-dev/3-tier-gitops.git']])
             }
         }
         /*stage('Sonarqube Analysis') {
@@ -44,7 +45,7 @@ pipeline {
                 }
             }
         }*/
-        stage('OWASP Dependency-Check Scan') {
+    stage('OWASP Dependency-Check Scan') {
             steps {
                 dir('frontend' ) {
                     dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
@@ -83,6 +84,7 @@ pipeline {
             steps {
                 sh 'trivy image ${REPOSITORY_URI}${AWS_ECR_REPO_NAME}:${BUILD_NUMBER} > trivyimage.txt' 
             }
-        }
+        }*/
     }
-}
+    }
+  
