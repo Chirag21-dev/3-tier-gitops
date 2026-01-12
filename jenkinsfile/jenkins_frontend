@@ -20,7 +20,10 @@ pipeline {
         stage('Checkout from Git') {
             steps {
                //git branch: 'main', credentialsId: 'GITHUB', url: 'https://github.com/Chirag21-dev/3-tier-gitops.git'
-               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB', url: 'https://github.com/Chirag21-dev/3-tier-gitops.git']])
+               checkout scmGit(branches: [[name: '*/main']], 
+               extensions: [], 
+               userRemoteConfigs: [[credentialsId: 'GITHUB', 
+               url: 'https://github.com/Chirag21-dev/3-tier-gitops.git']])
             }
         }
         /*stage('Sonarqube Analysis') {
